@@ -1,0 +1,20 @@
+Facebook Like Predictor:
+Yash Sherry 2014123, Nishant Yadav 2014067
+
+The Steps followed to get the number of likes for a particular post are:
+1. Fetching all the posts, along with date
+2. Fetching the number of likes of all the posts
+3. Fetching the name of the friends who liked a particular post through the JSON object
+4. For each fetched post, we make a hashmap for the words in these posts and maintain counters for all the words.
+5. The people who liked the posts are also added to another hashmap maintaining count of the number of statuses liked by a particular person.
+6. From the date / the top 20% of the posts are considered recent. The others are older posts.
+7. From the recent posts , we find the number of friends along with the names who have liked around 40% of the recent statuses. These friends are regular users and will more or less like the current status you post.
+8. For each word in all the posts, a corresponding arraylist is formed, which contains the name of friends who have liked a status with that word. This is done for the entire data. Around 1500 word entires(including non-grammatical and single characters) were made on my wall-data for about 280 posts.
+9. We use a weighting system along with a corelation function to determine the weight of a friend's chance to like the post. 
+10. For the recent friends who have liked our recent posts, these friends are givin an initial higher weight of around 3.
+11. Now the status to be tested is broken into words, for each word the hashmap is traversed to get the corresponding arraylist of friends who liked the status with this word. We remove the articles, conjunctions etc to just get the subject or noun from each status, and link these nouns to friends.
+12. For each leftover word in the sentence, the friends associated with that word gain an increase in their weights.
+13. After all the words are evaluated, the weights of all the friends who liked your post, even for once, will be determined.
+14. If the weights are above a threshold, they have a chance to like your post due to higher corelation. 
+15. Finally due to randomness and other factors like friends being unavailable, it is a 50-50 chance always, that they would like the post,even if they have interest on us.
+16. A multivariate regressor is also applied for classification. I am working on it.
